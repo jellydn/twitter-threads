@@ -1,6 +1,15 @@
 {
   "version": "2",
   "remote": {
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch.js": "357795406c27dfccce8a2556641c1f390197467cc2184a03cd8b71db64ef206f",
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch/config.js": "d26666a2cdf83260798e88483793d60c7c4626311f7ef0b173c3b3f1fb41ac68",
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch/constants.js": "793f25c68ebf3848f1989704dfa8b88b3a5c868acbc35fd7972bfbd449fad236",
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch/core.js": "3b6281d345d7ef3281b75b1261617786edaf03ed613176b295cc3fef7c0687dd",
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch/middleware.js": "65e27b7ca0a74524496bbeea518ad3294e5fcc6feff76fd21d7fe8519802059a",
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch/resolver.js": "5e22303658962eea79f56dc7ed430e3fb39fc57fa8c8beada43c9247518ef822",
+    "https://cdn.skypack.dev/-/wretch@v2.3.0-QPHrzGDOUIyPkpRomwJW/dist=es2019,mode=imports/optimized/wretch/utils.js": "39880dc5e984b1a97c46bd884345a259366307f928cdf09622f1f5e9aab22a84",
+    "https://cdn.skypack.dev/wretch": "5648bfa965b5b9cf86cdf025d5d7b0459f60edb037be51ffcfddee801f89fd23",
+    "https://cdn.skypack.dev/wretch/": "5648bfa965b5b9cf86cdf025d5d7b0459f60edb037be51ffcfddee801f89fd23",
     "https://deno.land/std@0.116.0/bytes/bytes_list.ts": "3bff6a09c72b2e0b1e92e29bd3b135053894196cca07a2bba842901073efe5cb",
     "https://deno.land/std@0.116.0/streams/delimiter.ts": "25a35824fffaaf620f7304bf4522eb4fc8b205a9e98120e8956ea113ec6898aa",
     "https://deno.land/std@0.148.0/_util/assert.ts": "e94f2eb37cebd7f199952e242c77654e43333c1ac4c5c700e929ea3aa5489f74",
