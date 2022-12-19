@@ -1,6 +1,6 @@
-# Hono Demo Starter App
+# Twitter Threads App
 
-This is a minimal project with [Hono](https://github.com/honojs/hono/) for Deno
+Twitter Threads App helps you read and share Twitter threads easily!
 
 [![ITMan - Tech #25 - Ultrafast web framework for Cloudflare Workers, Deno, and Bun [Vietnamese]](https://i.ytimg.com/vi/YsjqVvlrXGY/hqdefault.jpg)](https://www.youtube.com/watch?v=YsjqVvlrXGY)
 
@@ -9,6 +9,7 @@ This is a minimal project with [Hono](https://github.com/honojs/hono/) for Deno
 - Minimal
 - TypeScript
 - [Deno — A modern runtime for JavaScript and TypeScript](https://deno.land/) to develop and deploy.
+- [elbywan/wretch: A tiny wrapper built around fetch with an intuitive syntax.](https://github.com/elbywan/wretch)
 
 ## Usage
 
@@ -40,7 +41,7 @@ deno install --allow-read --allow-write --allow-env --allow-net --allow-run --no
 Then
 
 ```sh
-deployctl deploy --project=hello-hono-deno ./main.ts
+deployctl deploy --project=twitter-threads-app ./main.ts
 ```
 
 ## Useful links
