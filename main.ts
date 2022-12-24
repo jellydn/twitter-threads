@@ -39,7 +39,3 @@ api.get("/video/:username/:id", async (c) => {
 app.route("/api", api);
 
 serve(app.fetch);
-
-function wretch(url: string, arg1: { headers: { "User-Agent": string } }) {
-  throw new Error("Function not implemented.");
-}
