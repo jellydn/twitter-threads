@@ -1,6 +1,7 @@
 import { compress, cors, etag, logger } from "hono/middleware.ts";
 import { Hono } from "hono/mod.ts";
 import { serve } from "http/server.ts";
+
 import { getTweetById } from "./mod.ts";
 
 export const app = new Hono();
