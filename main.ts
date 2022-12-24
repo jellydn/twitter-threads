@@ -1,8 +1,7 @@
-import { serve } from "http/server.ts";
-import { Hono } from "hono/mod.ts";
 import { compress, cors, etag, logger } from "hono/middleware.ts";
-
-import wretch from "wretch";
+import { Hono } from "hono/mod.ts";
+import { serve } from "http/server.ts";
+import { getTweetById } from "./mod.ts";
 
 export const app = new Hono();
 
@@ -17,19 +16,12 @@ app.notFound((c) => c.json({ message: "Not Found", ok: false }, 404));
 const api = new Hono();
 api.use("/thread/*", cors());
 // Named path parameters
-api.get("/thread/:username/:id", async (c) => {
-  const username = c.req.param("id");
+api.get("/thread/:id", async (c) => {
   const id = c.req.param("id");
 
-  const url = `https://vxtwitter.com/${username}/status/${id}`;
+  const response = await getTweetById(id);
 
-  const text = await wretch(url, {
-    headers: {
-      "User-Agent": "TelegramBot (like TwitterBot)",
-    },
-  }).get().text();
-
-  return c.text(text);
+  return c.json(response);
 });
 
 app.route("/api", api);
