@@ -2,7 +2,7 @@ import { compress, cors, etag, logger } from "hono/middleware.ts";
 import { Hono } from "hono/mod.ts";
 import { serve } from "http/server.ts";
 
-import { getTweetById } from "./mod.ts";
+import { getTweetById, getVideo } from "./mod.ts";
 
 export const app = new Hono();
 
@@ -25,6 +25,21 @@ api.get("/thread/:id", async (c) => {
   return c.json(response);
 });
 
+api.use("/video/*", cors());
+// Named path parameters
+api.get("/video/:username/:id", async (c) => {
+  const username = c.req.param("id");
+  const id = c.req.param("id");
+
+  const url = `https://vxtwitter.com/${username}/status/${id}`;
+
+  return c.json(await getVideo(url));
+});
+
 app.route("/api", api);
 
 serve(app.fetch);
+
+function wretch(url: string, arg1: { headers: { "User-Agent": string } }) {
+  throw new Error("Function not implemented.");
+}
