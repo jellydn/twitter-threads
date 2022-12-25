@@ -1,7 +1,4 @@
-import consola, { Consola } from "npm:consola";
+// NOTE: npm modules are not supported in deno deploy yet
+import consola from "consola";
 
-// @ts-expect-error Missing create on define
-export const logger: Consola = consola.create({
-  // level: 4,
-  reporters: [new consola.JSONReporter()],
-});
+export const logger = consola.withDefaults();
