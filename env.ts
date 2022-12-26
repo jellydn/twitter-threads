@@ -1,3 +1,4 @@
+import { config } from "dotenv/mod.ts";
 import { cleanEnv, str } from "envalid";
 import { logger } from "./logger.ts";
 
@@ -5,7 +6,7 @@ const report = (error: string) => {
   logger.error(error);
 };
 
-export const env = cleanEnv(Deno.env.toObject(), {
+export const env = cleanEnv(config(), {
   JWT_TOKEN: str({
     desc: "your twitter token",
     docs:
@@ -13,6 +14,8 @@ export const env = cleanEnv(Deno.env.toObject(), {
   }),
 }, {
   reporter: ({ errors }) => {
-    report("Invalid environment variables: " + Object.keys(errors));
+    if (Object.keys(errors).length > 0) {
+      report("Invalid environment variables: " + Object.keys(errors));
+    }
   },
 });
