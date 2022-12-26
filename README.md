@@ -6,6 +6,8 @@ Twitter Threads App helps you read and share Twitter threads easily!
 
 [![ITMan - Tech #25 - Ultrafast web framework for Cloudflare Workers, Deno, and Bun [Vietnamese]](https://i.ytimg.com/vi/YsjqVvlrXGY/hqdefault.jpg)](https://www.youtube.com/watch?v=YsjqVvlrXGY)
 
+## [API Documentation](api.md)
+
 ## Features
 
 - Minimal
@@ -42,6 +44,7 @@ Install deployctl: the command line tool for Deno Deploy.
 ```sh
 deno install --allow-read --allow-write --allow-env --allow-net --allow-run --no-check -r -f https://deno.land/x/deploy/deployctl.ts
 ```
+
 Then
 
 ```sh
@@ -66,6 +69,5 @@ deployctl deploy --project=twitter-threads-app ./main.ts
 [![kofi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dunghd)
 [![paypal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/dunghd)
 [![buymeacoffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/dunghd)
-
 
 Give a ⭐️ if this project helped you!
