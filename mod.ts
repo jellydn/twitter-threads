@@ -1,4 +1,5 @@
 import wretch from "wretch";
+import pMemoize from "p-memoize";
 
 import { env } from "./env.ts";
 import { logger } from "./logger.ts";
@@ -37,7 +38,7 @@ export const getVideo = async (url: string) => {
   return { meta };
 };
 
-export const getTweetById = (id: string): Promise<TwitterDetail> => {
+const _getTweetById = (id: string): Promise<TwitterDetail> => {
   logger.info("get tweet by id", id);
   const params = new URLSearchParams({
     expansions: "author_id,attachments.media_keys",
@@ -48,6 +49,8 @@ export const getTweetById = (id: string): Promise<TwitterDetail> => {
 
   return twitterApi.url(`tweets/${id}?${params.toString()}`).get().json();
 };
+
+export const getTweetById: typeof _getTweetById = pMemoize(_getTweetById);
 
 export const getThreadById = async (threadId: string, maxDepth = 5) => {
   logger.info("get tweet thread by", threadId);
