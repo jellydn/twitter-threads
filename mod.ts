@@ -1,6 +1,7 @@
 import wretch from "wretch";
 
 import { env } from "./env.ts";
+import { logger } from "./logger.ts";
 import { TwitterDetail } from "./types.ts";
 
 const twitterApi = wretch("https://api.twitter.com/2/")
@@ -37,6 +38,7 @@ export const getVideo = async (url: string) => {
 };
 
 export const getTweetById = (id: string): Promise<TwitterDetail> => {
+  logger.info("get tweet by id", id);
   const params = new URLSearchParams({
     expansions: "author_id,attachments.media_keys",
     "user.fields": "name,username,profile_image_url",
@@ -47,15 +49,31 @@ export const getTweetById = (id: string): Promise<TwitterDetail> => {
   return twitterApi.url(`tweets/${id}?${params.toString()}`).get().json();
 };
 
-export const getThreadById = async (threadId: string) => {
+export const getThreadById = async (threadId: string, maxDepth = 5) => {
+  logger.info("get tweet thread by", threadId);
   const ids: string[] = [threadId];
+  const thread: Record<string, TwitterDetail> = {};
 
-  const tweet = await getTweetById(threadId);
+  let tweet = await getTweetById(threadId);
+  thread[threadId] = tweet;
 
-  // TODO: get all related tweet with referenced_tweets
+  const isThread = tweet.data.id !== tweet.data.conversation_id;
+
+  if (isThread) {
+    for (let i = 0; i < maxDepth; i += 1) {
+      const parentTweet = tweet.data?.referenced_tweets?.find((item) =>
+        item.type === "replied_to"
+      )?.id;
+      if (parentTweet) {
+        ids.push(parentTweet);
+        tweet = await getTweetById(parentTweet);
+        thread[parentTweet] = tweet;
+      }
+    }
+  }
 
   return {
     ids,
-    tweet,
+    thread,
   };
 };

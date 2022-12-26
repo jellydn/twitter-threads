@@ -4,12 +4,18 @@ export interface TwitterDetail {
 }
 
 export interface Data {
+  referenced_tweets: ReferencedTweet[];
   edit_history_tweet_ids: string[];
   attachments: Attachments;
   text: string;
   created_at: Date;
   conversation_id: string;
   author_id: string;
+  id: string;
+}
+
+export interface ReferencedTweet {
+  type: "quoted" | "replied_to";
   id: string;
 }
 
