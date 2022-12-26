@@ -23,6 +23,8 @@ git clone https://github.com/jellydn/hono-minimal-deno-app
 
 ### Develop
 
+Create .env file from .env.example then run below command
+
 ```sh
 deno task dev
 ```
