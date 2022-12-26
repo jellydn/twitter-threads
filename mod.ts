@@ -1,6 +1,7 @@
 import wretch from "wretch";
 
 import { env } from "./env.ts";
+import { TwitterDetail } from "./types.ts";
 
 const twitterApi = wretch("https://api.twitter.com/2/")
   .auth(`Bearer ${env.JWT_TOKEN}`)
@@ -35,7 +36,7 @@ export const getVideo = async (url: string) => {
   return { meta };
 };
 
-export const getTweetById = (id: string) => {
+export const getTweetById = (id: string): Promise<TwitterDetail> => {
   const params = new URLSearchParams({
     expansions: "author_id",
     "user.fields": "name,username,profile_image_url",
@@ -43,7 +44,7 @@ export const getTweetById = (id: string) => {
     "media.fields": "url,alt_text",
   });
 
-  return twitterApi.url(`tweets/${id}?${params.toString()}`).get();
+  return twitterApi.url(`tweets/${id}?${params.toString()}`).get().json();
 };
 
 export const getThreadById = async (threadId: string) => {
