@@ -5,19 +5,33 @@ export interface TwitterDetail {
 
 export interface Data {
   edit_history_tweet_ids: string[];
-  created_at: Date;
+  attachments: Attachments;
   text: string;
-  id: string;
+  created_at: Date;
+  conversation_id: string;
   author_id: string;
+  id: string;
+}
+
+export interface Attachments {
+  media_keys: string[];
 }
 
 export interface Includes {
+  media: Media[];
   users: User[];
 }
 
+export interface Media {
+  alt_text: string;
+  media_key: string;
+  type: string;
+  url: string;
+}
+
 export interface User {
-  id: string;
-  name: string;
-  profile_image_url: string;
   username: string;
+  profile_image_url: string;
+  name: string;
+  id: string;
 }

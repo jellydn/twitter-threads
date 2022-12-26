@@ -10,7 +10,13 @@ export const app = new Hono();
 app.use("*", etag(), logger(), compress());
 
 // Routing
-app.get("/", (c) => c.html("<h1>Hello Hono!</h1>"));
+app.get(
+  "/",
+  (c) =>
+    c.html(
+      "<h1>Twitter Threads App helps you read and share Twitter threads easily!</h1>",
+    ),
+);
 app.notFound((c) => c.json({ message: "Not Found", ok: false }, 404));
 
 // Nested route

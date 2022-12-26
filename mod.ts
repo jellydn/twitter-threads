@@ -38,9 +38,9 @@ export const getVideo = async (url: string) => {
 
 export const getTweetById = (id: string): Promise<TwitterDetail> => {
   const params = new URLSearchParams({
-    expansions: "author_id",
+    expansions: "author_id,attachments.media_keys",
     "user.fields": "name,username,profile_image_url",
-    "tweet.fields": "referenced_tweets,created_at",
+    "tweet.fields": "attachments,conversation_id,referenced_tweets,created_at",
     "media.fields": "url,alt_text",
   });
 
