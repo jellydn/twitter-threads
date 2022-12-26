@@ -27,13 +27,15 @@ api.get("/thread/:id", async (c) => {
 
 api.use("/video/*", cors());
 // Named path parameters
-api.get("/video/:username/:id", async (c) => {
-  const username = c.req.param("id");
+api.get("/video/:id", async (c) => {
+  const username = "itman";
   const id = c.req.param("id");
 
   const url = `https://vxtwitter.com/${username}/status/${id}`;
 
-  return c.json(await getVideo(url));
+  const response = await getVideo(url);
+
+  return c.json(response);
 });
 
 app.route("/api", api);
