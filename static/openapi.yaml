@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Twitter Threads App API
+  description: API for the Twitter Threads App, which helps users read and share Twitter threads easily.
+servers:
+  - url: https://twitter-threads.productsway.com
+paths:
+  /api/tweet/{id}:
+    get:
+      summary: Get tweet by ID
+      description: Returns the tweet with the specified ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the tweet to retrieve.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Tweet
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1234567890"
+                  text:
+                    type: string
+                    example: "This is a tweet."
+        404:
+          description: Tweet not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not Found"
+                  ok:
+                    type: boolean
+                    example: false
+  /api/thread/{id}:
+    get:
+      summary: Get thread by ID
+      description: Returns the thread with the specified ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the thread to retrieve.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Thread
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "1234567890"
+                  tweets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "1234567890"
+                        text:
+                          type: string
+                          example: "This is a tweet in the thread."
+        404:
+          description: Thread not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not Found"
+                  ok:
+                    type: boolean
+                    example: false
+  /api/video/{id}:
+    get:
+      summary: Get video by tweet ID
+      description: Returns the video with the specified tweet ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the tweet whose video to retrieve.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Video
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    example: "https://v"

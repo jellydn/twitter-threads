@@ -1,4 +1,4 @@
-import { compress, cors, etag, logger } from "hono/middleware.ts";
+import { compress, cors, etag, logger, serveStatic } from "hono/middleware.ts";
 import { Hono } from "hono/mod.ts";
 import { serve } from "http/server.ts";
 
@@ -8,14 +8,13 @@ export const app = new Hono();
 
 // Builtin middleware
 app.use("*", etag(), logger(), compress());
+app.use("/static/*", serveStatic({ root: "./" }));
 
 // Routing
-app.get(
-  "/",
-  (c) =>
-    c.html(
-      "<h1>Twitter Threads App helps you read and share Twitter threads easily!</h1>",
-    ),
+app.get("/", (c) =>
+  c.html(
+    "<h1>Twitter Threads App helps you read and share Twitter threads easily!</h1>"
+  )
 );
 app.notFound((c) => c.json({ message: "Not Found", ok: false }, 404));
 
