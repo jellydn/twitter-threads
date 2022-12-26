@@ -7,9 +7,7 @@ const report = (error: string) => {
 };
 
 export const env = cleanEnv(
-  config({
-    safe: true, // Set to true to ensure that all necessary environment variables are defined after reading from .env. It will read .env.example to get the list of needed variables.
-  }),
+  config(),
   {
     JWT_TOKEN: str({
       desc: "your twitter token",
