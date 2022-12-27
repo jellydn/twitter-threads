@@ -6,7 +6,12 @@ Twitter Threads App helps you read and share Twitter threads easily!
 
 [![ITMan - Tech #25 - Ultrafast web framework for Cloudflare Workers, Deno, and Bun [Vietnamese]](https://i.ytimg.com/vi/YsjqVvlrXGY/hqdefault.jpg)](https://www.youtube.com/watch?v=YsjqVvlrXGY)
 
+## 🏠 [Homepage](https://twitter-threads.productsway.com)
+
+### ✨ [Demo](https://twitter-threads.productsway.com/static/doc.html)
 ## [API Documentation](api.md)
+ - [GET /api/thread/:id](https://github.com/jellydn/twitter-threads-app/blob/main/api.md#get-apithreadid)
+ - [GET /api/video/:id](https://github.com/jellydn/twitter-threads-app/blob/main/api.md#get-apivideoid)
 
 ## Features
 
@@ -21,7 +26,7 @@ Twitter Threads App helps you read and share Twitter threads easily!
 #### Initialize
 
 ```sh
-git clone https://github.com/jellydn/hono-minimal-deno-app
+git clone https://github.com/jellydn/twitter-threads-app
 ```
 
 ### Develop
