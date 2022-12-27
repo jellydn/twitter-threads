@@ -14,6 +14,7 @@ Twitter Threads App helps you read and share Twitter threads easily!
 - TypeScript
 - [Deno — A modern runtime for JavaScript and TypeScript](https://deno.land/) to develop and deploy.
 - [elbywan/wretch: A tiny wrapper built around fetch with an intuitive syntax.](https://github.com/elbywan/wretch)
+- [sindresorhus/promise-fun: Promise packages, patterns, chat, and tutorials](https://github.com/sindresorhus/promise-fun)
 
 ## Usage
 
