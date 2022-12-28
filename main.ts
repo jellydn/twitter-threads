@@ -1,4 +1,4 @@
-import { compress, cors, etag, logger, serveStatic } from "hono/middleware.ts";
+import { compress, cors, etag, logger, serveStatic, validator } from "hono/middleware.ts";
 import { Hono } from "hono/mod.ts";
 import { serve } from "http/server.ts";
 
@@ -13,7 +13,7 @@ app.use("/static/*", serveStatic({ root: "./" }));
 // Routing
 app.get("/", (c) =>
   c.html(
-    "<h1>Twitter Threads App helps you read and share Twitter threads easily!</h1>"
+    "<h1><a href='https://threadify.productsway.com'>Twitter Threads App</a> helps you read and share Twitter threads easily!</h1>"
   )
 );
 app.notFound((c) => c.json({ message: "Not Found", ok: false }, 404));
@@ -32,11 +32,13 @@ api.get("/tweet/:id", async (c) => {
 
 api.use("/thread/*", cors());
 // Named path parameters
-api.get("/thread/:id", async (c) => {
+api.get("/thread/:id", validator((v) => ({
+    limit: v.query('limit').isNumeric().message('limit must be numeric!!!'),
+  })), async (c) => {
   const id = c.req.param("id");
+  const limit = c.req.query("limit");
 
-  // TODO: add max depth to params
-  const response = await getThreadById(id);
+  const response = await getThreadById(id, Number(limit));
 
   return c.json(response);
 });
