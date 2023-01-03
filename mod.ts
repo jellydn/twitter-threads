@@ -58,9 +58,15 @@ export const getThreadById = async (threadId: string, maxDepth = 5) => {
   const thread: Record<string, TwitterDetail> = {};
 
   let tweet = await getTweetById(threadId);
+  logger.info("tweet", tweet);
+  if(tweet.errors?.length) {
+    // throw error message with details
+    throw new Error(tweet.errors.map(e => `${e.type}: ${e.detail}`).join(", "));
+  }
+
   thread[threadId] = tweet;
 
-  const isThread = tweet.data.id !== tweet.data.conversation_id;
+  const isThread = tweet.data?.id !== tweet.data?.conversation_id;
 
   if (isThread) {
     for (let i = 0; i < maxDepth; i += 1) {
