@@ -1,6 +1,17 @@
 export interface TwitterDetail {
   data: Data;
   includes: Includes;
+  errors?: TwitterError[];
+} 
+
+export interface TwitterError {
+    value:         string;
+    detail:        string;
+    title:         string;
+    resource_type: string;
+    parameter:     string;
+    resource_id:   string;
+    type:          string;
 }
 
 export interface Data {
