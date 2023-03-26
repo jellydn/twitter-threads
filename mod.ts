@@ -1,9 +1,36 @@
 import wretch from "wretch";
 import pMemoize from "p-memoize";
+import LRUCache from "lru_cache";
 
 import { env } from "./env.ts";
 import { logger } from "./logger.ts";
 import { TwitterDetail } from "./types.ts";
+
+// create a LRU cache with max size of 100 items
+const cache = new LRUCache<string, string>(100);
+
+// get real URL from a shortened URL
+export async function getRealURL(shortURL: string): Promise<string> {
+  const foundUrl = cache.get(shortURL);
+  if (foundUrl) {
+    return foundUrl;
+  }
+
+  const response = await fetch(shortURL, {
+    redirect: "manual",
+  });
+  const finalUrl = response.headers.get("location");
+  if (!finalUrl) {
+    throw new Error("No location header found");
+  }
+
+  // cancel the request after getting the location header
+  response.body?.cancel();
+
+  cache.set(shortURL, finalUrl);
+
+  return finalUrl;
+}
 
 const twitterApi = wretch("https://api.twitter.com/2/")
   .auth(`Bearer ${env.JWT_TOKEN}`)
@@ -38,7 +65,7 @@ export const getVideo = async (url: string) => {
   return { meta };
 };
 
-const _getTweetById = (id: string): Promise<TwitterDetail> => {
+const _getTweetById = async (id: string): Promise<TwitterDetail> => {
   logger.info("get tweet by id", id);
   const params = new URLSearchParams({
     expansions: "author_id,attachments.media_keys",
@@ -47,7 +74,28 @@ const _getTweetById = (id: string): Promise<TwitterDetail> => {
     "media.fields": "url,alt_text",
   });
 
-  return twitterApi.url(`tweets/${id}?${params.toString()}`).get().json();
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const data = await twitterApi.url(`tweets/${id}?${params.toString()}`).get()
+    .json();
+
+  if (data.data?.text) {
+    const urls = data.data.text?.match(urlRegex)?.filter(Boolean) ?? [];
+    const text_urls = [];
+    for (const url of urls) {
+      try {
+        const realUrl = await getRealURL(url.replace(",", ""));
+        text_urls.push({
+          original_url: url,
+          url: realUrl,
+        });
+      } catch (error) {
+        logger.error(error);
+      }
+    }
+    data.data.text_urls = text_urls;
+  }
+
+  return data;
 };
 
 export const getTweetById: typeof _getTweetById = pMemoize(_getTweetById);
@@ -59,9 +107,11 @@ export const getThreadById = async (threadId: string, maxDepth = 5) => {
 
   let tweet = await getTweetById(threadId);
   logger.info("tweet", tweet);
-  if(tweet.errors?.length) {
+  if (tweet.errors?.length) {
     // throw error message with details
-    throw new Error(tweet.errors.map(e => `${e.type}: ${e.detail}`).join(", "));
+    throw new Error(
+      tweet.errors.map((e) => `${e.type}: ${e.detail}`).join(", "),
+    );
   }
 
   thread[threadId] = tweet;
