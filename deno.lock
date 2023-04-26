@@ -1,8 +1,6 @@
 {
   "version": "2",
   "remote": {
-    "https://cdn.skypack.dev/-/consola@v3.1.0-GOLqcAzB1hjYXD2Ibudg/dist=es2019,mode=imports/optimized/common/consola.ce5c7a59-08f11aea.js": "fbb0bc0d88ec28d1d66ec1d41f6500f64745e350fc7707dc026fd73f0c6cfc0c",
-    "https://cdn.skypack.dev/-/consola@v3.1.0-GOLqcAzB1hjYXD2Ibudg/dist=es2019,mode=imports/optimized/consola.js": "f7cb017428d5039d6257abfb2269b5b05a2ba506499eba8a56edaa6b6e086f2b",
     "https://cdn.skypack.dev/-/mimic-fn@v4.0.0-Tc2mkXDp0KT54mOkERx2/dist=es2019,mode=imports/optimized/mimic-fn.js": "b6387ad51ed85f7ba952b0d456dbd9ca23ced7bc7d3c57bd3cede999b2706d08",
     "https://cdn.skypack.dev/-/p-memoize@v7.1.1-y42W4jv7qeZhUWzLiWY3/dist=es2019,mode=imports/optimized/p-memoize.js": "26cd1214b84d958b5cd7c716deba151434cadb1621d0793c03938a9ac4284c96",
     "https://cdn.skypack.dev/-/wretch@v2.5.1-2IzdDIAJzrtmWpFBsopF/dist=es2019,mode=imports/optimized/wretch.js": "357795406c27dfccce8a2556641c1f390197467cc2184a03cd8b71db64ef206f",
@@ -12,7 +10,6 @@
     "https://cdn.skypack.dev/-/wretch@v2.5.1-2IzdDIAJzrtmWpFBsopF/dist=es2019,mode=imports/optimized/wretch/middleware.js": "65e27b7ca0a74524496bbeea518ad3294e5fcc6feff76fd21d7fe8519802059a",
     "https://cdn.skypack.dev/-/wretch@v2.5.1-2IzdDIAJzrtmWpFBsopF/dist=es2019,mode=imports/optimized/wretch/resolver.js": "ef7a8c3e8e96ec4aa5b05a12d0a5bf3ac21a338eb8e557bc6dad9c0e7e05a24f",
     "https://cdn.skypack.dev/-/wretch@v2.5.1-2IzdDIAJzrtmWpFBsopF/dist=es2019,mode=imports/optimized/wretch/utils.js": "39880dc5e984b1a97c46bd884345a259366307f928cdf09622f1f5e9aab22a84",
-    "https://cdn.skypack.dev/consola": "620343e1c3a864717d8b8a295cd08582625cbabfb0b258494a9b770b0ea051b1",
     "https://cdn.skypack.dev/p-memoize": "59f4420b5923fd6a0be7de5b6ca477a8eb5d3d09c869efc5322138fc03b2b2dc",
     "https://cdn.skypack.dev/wretch@2.5.1": "28037a0b4265b76d313482a17794f586c51c046b289cb0a1f3dd765204278efe",
     "https://deno.land/std@0.153.0/fmt/colors.ts": "ff7dc9c9f33a72bd48bc24b21bbc1b4545d8494a431f17894dbc5fe92a938fc4",
