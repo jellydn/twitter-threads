@@ -7,7 +7,7 @@
     "testing/": "https://deno.land/std@0.167.0/testing/",
     "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
     "envalid": "https://deno.land/x/envalid@0.1.2/mod.ts",
-    "consola": "https://cdn.skypack.dev/consola",
+    "consola": "https://esm.sh/consola",
     "p-memoize": "https://cdn.skypack.dev/p-memoize",
     "lru_cache": "https://deno.land/x/lru_cache/mod.ts",
     "wretch": "https://cdn.skypack.dev/wretch@2.5.1"

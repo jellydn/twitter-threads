@@ -1,4 +1,4 @@
 // NOTE: npm modules are not supported in deno deploy yet
-import consola from "consola";
+import { createConsola } from "consola";
 
-export const logger = consola.withDefaults();
+export const logger = createConsola();
