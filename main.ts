@@ -10,6 +10,7 @@ import { Hono } from "hono/mod.ts";
 import { serve } from "http/server.ts";
 
 import { getThreadById, getTweetById, getVideo } from "./mod.ts";
+import { logger as consolaLogger } from "./logger.ts";
 
 export const app = new Hono();
 
@@ -40,6 +41,19 @@ api.get("/tweet/:id", async (c) => {
   return c.json(response);
 });
 
+/**
+ * Tracking thread
+ * Increment the view count for the thread
+ *
+ * @param {string} id
+ */
+async function trackingThread(id: string) {
+  consolaLogger.info(`Tracking thread ${id}`);
+  const viewCount = await kvDb.get(["threads", id]);
+  consolaLogger.info(`Thread ${id} has ${viewCount} views`);
+  await kvDb.set(["threads", id], (viewCount?.value ?? 0) + 1);
+}
+
 api.use("/thread/*", cors());
 // Named path parameters
 api.get(
@@ -52,38 +66,21 @@ api.get(
     const limit = c.req.query("limit");
 
     const response = await getThreadById(id, Number(limit));
-
-    // Increment the view count for the thread
-    const viewCount = await kvDb.get(`thread:${id}:views`) ?? 0;
-    await kvDb.set(`thread:${id}:views`, viewCount + 1);
+    trackingThread(id).catch(consolaLogger.error);
 
     return c.json(response);
   },
 );
 
 api.get("/top-threads", async (c) => {
-  // Retrieve the view counts for all threads
-  const keys = await kvDb.keys("thread:*:views");
-  const viewCounts = await Promise.all(
-    keys.map((key: string) => kvDb.get(key)),
-  );
-
-  // Sort the threads by view count in descending order and take the top 10
-  const threads = keys
-    .map((key: string, i: string | number) => ({
-      id: key.split(":")[1],
-      views: viewCounts[i],
-    }))
-    .sort((a: { views: number }, b: { views: number }) => b.views - a.views)
-    .slice(0, 10);
-
-  // Retrieve the thread details for the top 10 threads
-  const topThreads = await Promise.all(
-    threads.map(async (thread: { id: string; views: number }) => {
-      const t = await getThreadById(thread.id);
-      return { ...t, views: thread.views };
-    }),
-  );
+  const topThreads = [];
+  // Get all the keys in the KV database that start with "threads"
+  for await (const entry of kvDb.list({ prefix: ["threads"] })) {
+    topThreads.push({
+      id: entry.key,
+      viewCount: entry.value,
+    });
+  }
 
   return c.json(topThreads);
 });
