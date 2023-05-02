@@ -47,7 +47,11 @@ api.get("/tweet/:id", async (c) => {
  *
  * @param {string} id
  */
-async function trackingThread(id: string) {
+async function trackingThread(id: string, info?: {
+  username: string;
+  avatar: string;
+  title: string;
+}) {
   consolaLogger.info(`Tracking thread ${id}`);
   const viewCount = await kvDb.get(["threads", id]);
   consolaLogger.info(`Thread ${id} has ${JSON.stringify(viewCount)} views`);
@@ -83,9 +87,19 @@ api.get("/top-threads", async (c) => {
   }
 
   // Get top 10 and sort by viewCount
-  topThreads.sort((a, b) => b.viewCount - a.viewCount);
+  const threads = topThreads.sort((a, b) => b.viewCount - a.viewCount).slice(
+    0,
+    10,
+  );
 
-  return c.json(topThreads.slice(0, 10));
+  // Get top threads with the detail
+  for (const thread of threads) {
+    const response = await getTweetById(thread.id);
+    thread.avatar = response.includes?.users[0]?.profile_image_url;
+    thread.username = response.includes?.users[0]?.username;
+  }
+
+  return c.json(threads);
 });
 
 api.use("/video/*", cors());
