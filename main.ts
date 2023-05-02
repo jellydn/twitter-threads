@@ -50,7 +50,7 @@ api.get("/tweet/:id", async (c) => {
 async function trackingThread(id: string) {
   consolaLogger.info(`Tracking thread ${id}`);
   const viewCount = await kvDb.get(["threads", id]);
-  consolaLogger.info(`Thread ${id} has ${viewCount} views`);
+  consolaLogger.info(`Thread ${id} has ${JSON.stringify(viewCount)} views`);
   await kvDb.set(["threads", id], (viewCount?.value ?? 0) + 1);
 }
 
@@ -77,12 +77,15 @@ api.get("/top-threads", async (c) => {
   // Get all the keys in the KV database that start with "threads"
   for await (const entry of kvDb.list({ prefix: ["threads"] })) {
     topThreads.push({
-      id: entry.key,
+      id: entry.key[1],
       viewCount: entry.value,
     });
   }
 
-  return c.json(topThreads);
+  // Get top 10 and sort by viewCount
+  topThreads.sort((a, b) => b.viewCount - a.viewCount);
+
+  return c.json(topThreads.slice(0, 10));
 });
 
 api.use("/video/*", cors());
