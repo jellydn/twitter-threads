@@ -83,6 +83,8 @@ api.get("/top-threads", async (c) => {
     topThreads.push({
       id: entry.key[1],
       viewCount: entry.value,
+      avatar: "",
+      username: "",
     });
   }
 
