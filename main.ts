@@ -14,7 +14,6 @@ import { logger as consolaLogger } from "./logger.ts";
 
 export const app = new Hono();
 
-// KV Database, refer https://deno.com/manual@v1.33.1/runtime/kv
 // @ts-expect-error ⚠️ Because Deno KV is currently experimental and subject to change, it is only available when running with --unstable flag in Deno CLI.
 const kvDb = await Deno.openKv();
 
@@ -76,6 +75,7 @@ api.get(
   },
 );
 
+api.use("/top-threads", cors());
 api.get("/top-threads", async (c) => {
   const topThreads = [];
   // Get all the keys in the KV database that start with "threads"
