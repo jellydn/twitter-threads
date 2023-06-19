@@ -2,7 +2,7 @@
   "tasks": {
     "dev": "deno run -A --unstable --watch=static/,routes/ main.ts",
     "start": "deno run --unstable --allow-net --allow-env main.ts",
-    "test": "deno test --allow-net --allow-env"
+    "test": "deno test --unstable --allow-net --allow-env"
   },
   "importMap": "./import_map.json"
 }
